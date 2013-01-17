@@ -41,11 +41,11 @@ function doScrollTo(e) {
 }
 
 function comboWindowScroll() {
-    if( $(window).scrollTop() > 100 ) {
-        $('.navbar').not('.navbar-fixed-top').hide().addClass('navbar-fixed-top').fadeIn( 400 );
+    if( $(window).scrollTop() > 500 ) {
+        //$('.navbar').not('.navbar-fixed-top').hide().addClass('navbar-fixed-top').fadeIn( 400 );
         $("#back-to-top").fadeIn();
     } else if( $(window).scrollTop() < 60 ) {
-        $('.navbar.navbar-fixed-top').not('.toolbar').removeClass('navbar-fixed-top').show();
+        //$('.navbar.navbar-fixed-top').not('.toolbar').removeClass('navbar-fixed-top').show();
         $("#back-to-top").fadeOut();
     } else {
         $('body.toolbar').removeClass('toolbar');
