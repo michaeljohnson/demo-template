@@ -31,10 +31,10 @@ $(function() {
     
     function carouselSwipe(direction) {
 	    if( direction == 'left' ) {
-	        $('.left.carousel-control').trigger('click');
+	        $('.right.carousel-control').trigger('click');
 	    }
 	    else if( direction == 'right' ) {
-	        $('.right.carousel-control').trigger('click');
+	        $('.left.carousel-control').trigger('click');
 	    }
     }
 
