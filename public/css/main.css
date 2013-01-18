@@ -101,8 +101,6 @@ img { height: auto !important; }
    Custom site styles
    ========================================================================== */
    
-   .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top { margin-left: -1em; margin-right: -1em; }
-   
     ul { padding-left: 0px; }
    
     body { position: relative; padding-bottom: 40px; padding-top: 80px; color: #5a5a5a; }
@@ -128,18 +126,20 @@ img { height: auto !important; }
     .secondary-menu > .nav-tabs .icon-chevron-right { z-index: 10; position: absolute; top: 1px; right: 0px; display: block; height: 36px; width: 20px; line-height: 36px; opacity: 0.25; }
     .secondary-menu > .nav-tabs > .active .icon-chevron-right { color: #fff; opacity: 0.9; }
     
-    .carousel { z-index: 1; position: fixed; width: 100%; margin-bottom: 0px; margin-left: -1em; margin-right: -1em; }
+    .carousel { z-index: 1; position: fixed; width: 100%; margin-bottom: 0px; }
     .carousel .container { position: relative; z-index: 9; }
     .carousel-control { z-index: 9; height: 80px; margin-top: 0; font-size: 7.5em; text-shadow: 0 1px 1px rgba(0,0,0,.4); background-color: transparent; border: 0; }
-    .carousel .item { min-height: 500px; }
-    .carousel-inner > .item > img { min-height: 500px !important; }
-    .carousel img { position: absolute; top: 0; left: 0; min-width: 100%; height: 500px; }
-    .carousel-caption { background-color: transparent; position: static; max-width: 550px; padding: 0 20px; margin-top: 200px; }
+    .carousel .item { height: 500px; background-repeat: no-repeat; background-position: 50% 50%;
+        -webkit-background-size: cover;
+                background-size: cover;
+
+    }
+    .carousel-caption { background-color: transparent; position: static; max-width: 550px; padding: 0 1.5em; margin-top: 200px; }
     .carousel-caption h1,
     .carousel-caption .lead { margin: 0; line-height: 1.25; color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,.4); }
     .carousel-caption .btn { margin-top: 10px; }
     
-    .page-container { z-index: 9; position: relative; top: 480px; width: 103.5%; margin-left: -1em; margin-right: -1em; padding-top: 3em; background-color: #fff; 
+    .page-container { z-index: 9; position: relative; top: 500px; width: 100%; padding-top: 3em; background-color: #fff; 
           -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.25);
              -moz-box-shadow: 0 2px 10px rgba(0,0,0,.25);
                   box-shadow: 0 2px 10px rgba(0,0,0,.25);
@@ -173,8 +173,9 @@ img { height: auto !important; }
     .form-signin input[type="text"],
     .form-signin input[type="password"] { font-size: 16px; height: auto; margin-bottom: 15px; padding: 7px 9px; }
     
-    footer { z-index: 9; position: absolute; bottom: -480px; left: 0px; max-height: 4.25em; min-height: 3em; width: 100%; line-height: 3em; background-color: #f5f5f5; }
-    footer p { margin: 0; font-size: 0.875em; }
+    footer { z-index: 9; position: absolute; bottom: 0px; left: 0px; max-height: 4.25em; min-height: 3em; width: 100%; line-height: 3em; background-color: #f5f5f5; }
+    .home footer { bottom: -500px; }
+    footer p { margin: 0; font-size: 0.875em; text-shadow: 1px 1px #fff; }
     footer a:hover { text-decoration: none; }
 
     @media (max-width: 1040px) {
@@ -190,31 +191,37 @@ img { height: auto !important; }
         .home header.navbar-wrapper { margin-top: 0; }
         .home header .navbar-inner { padding-top: 5px; padding-bottom: 5px; }
         .container.navbar-wrapper { margin-bottom: 0; width: auto; }
-        .navbar-inner { border-radius: 0; margin: 0; }
+        .navbar-inner { border-radius: 0px 0px 4px 4px; margin: 0; }
+        header .navbar .brand { margin-left: 0; }
         .secondary-menu .nav { margin: 0; }
         .carousel .item { height: 380px; }
-        .carousel img { width: auto; height: 500px; }
-        .carousel-caption { margin-top: 100px; }
+        .carousel-caption { margin-top: 100px; padding: 0 2.5em; }
+        .page-container { top: 360px; }
         .featurette { height: auto; padding: 0; }
         .featurette-image.pull-left,
         .featurette-image.pull-right { display: block; float: none; max-width: 40%; margin: 0 auto 20px; }
         footer { position: static; background-color: #fff; }
-        .home footer { position: absolute; }
+        .home footer { position: absolute; bottom: -380px; }
       
     }
 
     @media (max-width: 767px) {
-
-        .navbar-inner { margin: 0; }
+        
+        body.home { padding: 0; }
+        .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top { margin-left: -1em; margin-right: -1em; }
+        .navbar-inner { border-radius: 0; margin: 0; }
         .carousel .item { height: 300px; }
-        .carousel img { height: 300px; }
         .carousel-caption { width: 65%; padding: 0 70px; margin-top: 75px; }
         .carousel-caption h1 { font-size: 1.5em; }
         .carousel-caption .lead,
         .carousel-caption .btn { font-size: 1em; }
-        .marketing .tout + .tout { margin-top: 40px; }
+        .page-container { top: 280px; }
+        .page-container .container { padding: 0 1em; }
+        .tout + .tout { margin-top: 40px; }
         .featurette-heading { font-size: 1.5px; }
         .featurette .lead { font-size: 1em; line-height: 1.5; }
+        .home footer { bottom: -300px; }
+        .home footer .container { padding: 0 1em; }
 
     }
     

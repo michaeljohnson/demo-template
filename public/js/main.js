@@ -25,7 +25,17 @@ $(function() {
     });
     
     if( $('#featured-carousel').length ) {
-        //$('#featured-carousel').carousel(); // bootstrap.js
+        $('#featured-carousel').carousel(); // bootstrap.js
+        $('#featured-carousel').touchSwipe(carouselSwipe);
+    }
+    
+    function carouselSwipe(direction) {
+	    if( direction == 'left' ) {
+	        $('.left.carousel-control').trigger('click');
+	    }
+	    else if( direction == 'right' ) {
+	        $('.right.carousel-control').trigger('click');
+	    }
     }
 
 }); // End document.load (DOM loaded)
@@ -50,6 +60,6 @@ function comboWindowScroll() {
     } else {
         $('body.toolbar').removeClass('toolbar');
     }
-};
+}
 
 })(this.jQuery); // End jquery namespace
