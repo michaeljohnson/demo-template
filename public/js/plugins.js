@@ -1,17 +1,27 @@
 /**
- * Plugins
+ *  Plugins
  */
  
 (function($){
 
 /**
- * jquery.scrollTo-1.4.3.1-min
- * Copyright (c) 2007-2012 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
- * Dual licensed under MIT and GPL.
- * @author Ariel Flesler
- * @version 1.4.3.1
+ *  jquery.scrollTo-1.4.3.1-min
+ *  Copyright (c) 2007-2012 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
+ *  Dual licensed under MIT and GPL.
+ *  @author Ariel Flesler
+ *  @version 1.4.3.1
  */
 ;(function($){var h=$.scrollTo=function(a,b,c){$(window).scrollTo(a,b,c)};h.defaults={axis:'xy',duration:parseFloat($.fn.jquery)>=1.3?0:1,limit:true};h.window=function(a){return $(window)._scrollable()};$.fn._scrollable=function(){return this.map(function(){var a=this,isWin=!a.nodeName||$.inArray(a.nodeName.toLowerCase(),['iframe','#document','html','body'])!=-1;if(!isWin)return a;var b=(a.contentWindow||a).document||a.ownerDocument||a;return/webkit/i.test(navigator.userAgent)||b.compatMode=='BackCompat'?b.body:b.documentElement})};$.fn.scrollTo=function(e,f,g){if(typeof f=='object'){g=f;f=0}if(typeof g=='function')g={onAfter:g};if(e=='max')e=9e9;g=$.extend({},h.defaults,g);f=f||g.duration;g.queue=g.queue&&g.axis.length>1;if(g.queue)f/=2;g.offset=both(g.offset);g.over=both(g.over);return this._scrollable().each(function(){if(e==null)return;var d=this,$elem=$(d),targ=e,toff,attr={},win=$elem.is('html,body');switch(typeof targ){case'number':case'string':if(/^([+-]=)?\d+(\.\d+)?(px|%)?$/.test(targ)){targ=both(targ);break}targ=$(targ,this);if(!targ.length)return;case'object':if(targ.is||targ.style)toff=(targ=$(targ)).offset()}$.each(g.axis.split(''),function(i,a){var b=a=='x'?'Left':'Top',pos=b.toLowerCase(),key='scroll'+b,old=d[key],max=h.max(d,a);if(toff){attr[key]=toff[pos]+(win?0:old-$elem.offset()[pos]);if(g.margin){attr[key]-=parseInt(targ.css('margin'+b))||0;attr[key]-=parseInt(targ.css('border'+b+'Width'))||0}attr[key]+=g.offset[pos]||0;if(g.over[pos])attr[key]+=targ[a=='x'?'width':'height']()*g.over[pos]}else{var c=targ[pos];attr[key]=c.slice&&c.slice(-1)=='%'?parseFloat(c)/100*max:c}if(g.limit&&/^\d+$/.test(attr[key]))attr[key]=attr[key]<=0?0:Math.min(attr[key],max);if(!i&&g.queue){if(old!=attr[key])animate(g.onAfterFirst);delete attr[key]}});animate(g.onAfter);function animate(a){$elem.animate(attr,f,g.easing,a&&function(){a.call(this,e,g)})}}).end()};h.max=function(a,b){var c=b=='x'?'Width':'Height',scroll='scroll'+c;if(!$(a).is('html,body'))return a[scroll]-$(a)[c.toLowerCase()]();var d='client'+c,html=a.ownerDocument.documentElement,body=a.ownerDocument.body;return Math.max(html[scroll],body[scroll])-Math.min(html[d],body[d])};function both(a){return typeof a=='object'?a:{top:a,left:a}}})(jQuery);
+
+/**
+ * jQuery resize event - v1.1 - 3/14/2010
+ * http://benalman.com/projects/jquery-resize-plugin/
+ * 
+ * Copyright (c) 2010 "Cowboy" Ben Alman
+ * Dual licensed under the MIT and GPL licenses.
+ * http://benalman.com/about/license/
+ */
+(function($,h,c){var a=$([]),e=$.resize=$.extend($.resize,{}),i,k="setTimeout",j="resize",d=j+"-special-event",b="delay",f="throttleWindow";e[b]=250;e[f]=true;$.event.special[j]={setup:function(){if(!e[f]&&this[k]){return false}var l=$(this);a=a.add(l);$.data(this,d,{w:l.width(),h:l.height()});if(a.length===1){g()}},teardown:function(){if(!e[f]&&this[k]){return false}var l=$(this);a=a.not(l);l.removeData(d);if(!a.length){clearTimeout(i)}},add:function(l){if(!e[f]&&this[k]){return false}var n;function m(s,o,p){var q=$(this),r=$.data(this,d);r.w=o!==c?o:q.width();r.h=p!==c?p:q.height();n.apply(this,arguments)}if($.isFunction(l)){n=l;return m}else{n=l.handler;l.handler=m}}};function g(){i=h[k](function(){a.each(function(){var n=$(this),m=n.width(),l=n.height(),o=$.data(this,d);if(m!==o.w||l!==o.h){n.trigger(j,[o.w=m,o.h=l])}});g()},e[b])}})(jQuery,this);
 
 /**
  * Stripped the touch swipe logic from jQuery Mobile and turned it into this plugin
@@ -20,11 +30,77 @@
  */
 ;(function(d){var f,c,k,g=30,j=75,i=10,l=1000;if("ontouchend" in document){f="touchend.cj_swp";c="touchmove.cj_swp";k="touchstart.cj_swp"}else{f="mouseup.cj_swp";c="mousemove.cj_swp";k="mousedown.cj_swp"}d.fn.touchSwipe=function(n,o){if(o){this.data("stopPropagation",true)}if(n){return this.each(m,[n])}};d.fn.touchSwipeLeft=function(n,o){if(o){this.data("stopPropagation",true)}if(n){return this.each(e,[n])}};d.fn.touchSwipeRight=function(n,o){if(o){this.data("stopPropagation",true)}if(n){return this.each(b,[n])}};function m(n){d(this).touchSwipeLeft(n).touchSwipeRight(n)}function e(n){var o=d(this);if(!o.data("swipeLeft")){o.data("swipeLeft",n)}if(!o.data("swipeRight")){h(o)}}function b(n){var o=d(this);if(!o.data("swipeRight")){o.data("swipeRight",n)}if(!o.data("swipeLeft")){h(o)}}d.fn.unbindSwipeLeft=function(){this.removeData("swipeLeft");if(!this.data("swipeRight")){this.unbindSwipe(true)}};d.fn.unbindSwipeRight=function(){this.removeData("swipeRight");if(!this.data("swipeLeft")){this.unbindSwipe(true)}};d.fn.unbindSwipe=function(n){if(!n){this.removeData("swipeLeft swipeRight stopPropagation")}return this.unbind(k+" "+c+" "+f)};function h(n){n.unbindSwipe(true).bind(k,a)}function a(n){var o=new Date().getTime(),r=n.originalEvent.touches?n.originalEvent.touches[0]:n,u=d(this).bind(c,s).one(f,x),q=r.pageX,p=r.pageY,v,t,w;if(u.data("stopPropagation")){n.stopImmediatePropagation()}function x(y){u.unbind(c);if(o&&w){if(w-o<l&&Math.abs(q-v)>g&&Math.abs(p-t)<j){if(q>v){if(u.data("swipeLeft")){u.data("swipeLeft")("left")}}else{if(u.data("swipeRight")){u.data("swipeRight")("right")}}}}o=w=null}function s(y){if(o){r=y.originalEvent.touches?y.originalEvent.touches[0]:y;w=new Date().getTime();v=r.pageX;t=r.pageY;if(Math.abs(q-v)>i){y.preventDefault()}}}}})(jQuery);
 
+/**
+ * Add js fallback to bootstrap-carousel.js for css3 transitions in browsers w/o support (e.g. IE9-)
+ *  - https://github.com/Barryvdh/bootstrap/commit/8b294f0c0184eb7111ef6da6046d4d1f33ea7ba3
+ */
+    var carouselExtensionMethods = {
+        
+        slide: function (type, next) {
+          if(!$.support.transition && this.$element.hasClass('slide')) {
+            this.$element.find('.item').stop(true, true); //Finish animation and jump to end.
+          }
+          var $active = this.$element.find('.active')
+            , $next = next || $active[type]()
+            , isCycling = this.interval
+            , direction = type == 'next' ? 'left' : 'right'
+            , fallback  = type == 'next' ? 'first' : 'last'
+            , that = this
+            , e = $.Event('slide')
+    
+          this.sliding = true
+    
+          isCycling && this.pause()
+    
+          $next = $next.length ? $next : this.$element.find('.item')[fallback]()
+    
+          if ($next.hasClass('active')) return
+    
+          if ($.support.transition && this.$element.hasClass('slide')) {
+            this.$element.trigger(e)
+            if (e.isDefaultPrevented()) return
+            $next.addClass(type)
+            $next[0].offsetWidth // force reflow
+            $active.addClass(direction)
+            $next.addClass(direction)
+            this.$element.one($.support.transition.end, function () {
+              $next.removeClass([type, direction].join(' ')).addClass('active')
+              $active.removeClass(['active', direction].join(' '))
+              that.sliding = false
+              setTimeout(function () { that.$element.trigger('slid') }, 0)
+            })
+          }else if(!$.support.transition && this.$element.hasClass('slide')) {
+            this.$element.trigger(e)
+            if (e.isDefaultPrevented()) return
+            $active.animate({left: (direction == 'right' ? '100%' : '-100%')}, 600, function(){
+                $active.removeClass('active')
+                that.sliding = false
+                setTimeout(function () { that.$element.trigger('slid') }, 0)
+            })
+            $next.addClass(type).css({left: (direction == 'right' ? '-100%' : '100%')}).animate({left: '0'}, 600,  function(){
+                $next.removeClass(type).addClass('active')
+            })
+          } else {
+            this.$element.trigger(e)
+            if (e.isDefaultPrevented()) return
+            $active.removeClass('active')
+            $next.addClass('active')
+            this.sliding = false
+            this.$element.trigger('slid')
+          }
+    
+          isCycling && this.cycle()
+    
+          return this
+        }
+    };
+$.extend(true, $[ "fn" ][ "carousel" ][ "Constructor" ].prototype, carouselExtensionMethods);
+
 })(jQuery); // End jquery namespace
 
 /**
- * MBP - Mobile boilerplate helper functions
- * https://github.com/h5bp/mobile-boilerplate/blob/master/js/helper.js
+ *  MBP: Mobile boilerplate helper functions
+ *   - https://github.com/h5bp/mobile-boilerplate/blob/master/js/helper.js
  */
 
 (function(document) {

@@ -1,6 +1,6 @@
 /*
 *
-*   Grid System (0.9.3)     <http://theplasticfactory.us/gs/>
+*   Grid System (0.9.4)     <http://theplasticfactory.us/gs/>
 *   by Michael Johnson      <http://theplasticfactory.us/>
 *
 *   A twelve-column responsive grid layout inspired by Joni Korpi's GGS.
@@ -29,7 +29,19 @@
 *   Zoomable baseline grid
 *   type size presets
 */
-body { padding: 0 1em; font-size: 1em; line-height: 1.5em;/* 16px / 24px */ }
+body { padding: 0 0.5em; font-size: 1em; line-height: 1.5em;/* 16px / 24px */ }
+
+/*
+*   Apply a natural box layout model with universal selector
+*   `border-box` allows width to be calculated independent of padding
+*    - <http://paulirish.com/2012/box-sizing-border-box-ftw/>
+*    - <http://html5please.com/#box-sizing>
+*   `box-sizing` isn't supported in IE6-7, so we use a polyfill
+*    - <https://github.com/Schepp/box-sizing-polyfill>
+*/
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; 
+    *behavior: url(/assets/js/vendor/boxsizing.htc); /* Path must be relative to html doc, not css. */
+}
 
 /*
 *   Container, fixed or fluid
@@ -60,27 +72,16 @@ body { padding: 0 1em; font-size: 1em; line-height: 1.5em;/* 16px / 24px */ }
 /*
 *   Defaults: Mobile first
 */
-.g { margin: 0 -0.5em; } /* Match padding on .u below */
 .container-fluid .g { margin: 0 5.555555555555555%; } /* Margin size is arbitrary */
 
-.u, [class*="u-"], .u-1-12, .u-2-12, .u-3-12, .u-4-12, .u-5-12, .u-6-12, .u-7-12, 
-.u-8-12, .u-9-12, .u-10-12, .u-11-12, .u-12-12 { 
-    float: left; 
+.u, .g > [class*="u-"], .u-1-12, .u-2-12, .u-3-12, .u-4-12, .u-5-12, 
+.u-6-12, .u-7-12, .u-8-12, .u-9-12, .u-10-12, .u-11-12, .u-12-12 { 
+    float: none; 
     min-height: 1px; 
     width: 100%; 
     margin: 0;
-    padding: 0 0.5em; /* Elastic gutters [(0.5em x 2) * 16 = 16px] */
-    /* `border-box` allows width to be calculated independent of padding
-     * <http://paulirish.com/2012/box-sizing-border-box-ftw/>
-     * <http://html5please.com/#box-sizing>
-    */
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    /* `box-sizing` isn't supported in IE6-7, so we use a polyfill
-     * <https://github.com/Schepp/box-sizing-polyfill>
-    */
-    *behavior: url(/js/vendor/boxsizing.htc);
+    padding: 0;
+    word-wrap: break-word;
 }
 .u-12-12 { float: none !important; width: 100%; }
 
@@ -109,10 +110,15 @@ body { padding: 0 1em; font-size: 1em; line-height: 1.5em;/* 16px / 24px */ }
     body { padding: 0; }
     .container { width: 45.25em; } /* 724px */
     
-    /* We use selectivizr.js for this to work in IE6-8,
-     * If no JS, would need to manually clear for these browsers.
-    */
-    .g .u:nth-child(odd), .g [class*="u-"]:nth-child(odd) { clear: left; }
+    .u, .g > [class*="u-"], .u-1-12, .u-2-12, .u-3-12, .u-4-12, .u-5-12, 
+    .u-6-12, .u-7-12, .u-8-12, .u-9-12, .u-10-12, .u-11-12, .u-12-12 {
+        float: left;
+        padding: 0 0.25em; /* Elastic gutters [(0.5em x 2) * 16 = 16px] */
+    }
+    .g > .u:first-child, .g > [class*="u-"]:first-child { padding-left: 0 !important; }
+    .g > .u:last-child, .g > [class*="u-"]:last-child { padding-right: 0 !important; }
+    
+    .g .u:nth-child(odd), .g > [class*="u-"]:nth-child(odd) { clear: left; }
     
     .g .u-1-12 { width: 50%; }
     .g .u-2-12 { width: 50%; }
@@ -144,32 +150,30 @@ body { padding: 0 1em; font-size: 1em; line-height: 1.5em;/* 16px / 24px */ }
     .container { width: 45.25em; } /* 724px */
 
     .g .u, .g [class*="u-"] { clear: none !important; }
-    .container-fluid .g .u:first-child, .container-fluid .g [class*="u-"]:first-child { padding-left: 0 !important; }
-    .container-fluid .g .u:last-child, .container-fluid .g [class*="u-"]:last-child { padding-right: 0 !important; }
     
-    .g .u-1-12 { width: 8.333333333333334%; word-wrap: break-word; }
-    .g .u-2-12 { width: 16.666666666666667%; }
+    .g .u-1-12 { width: 8.334%; }
+    .g .u-2-12 { width: 16.667%; }
     .g .u-3-12 { width: 25%; }
-    .g .u-4-12 { width: 33.333333333333334%; }
-    .g .u-5-12 { width: 41.666666666666667%; }
+    .g .u-4-12 { width: 33.334%; }
+    .g .u-5-12 { width: 41.667%; }
     .g .u-6-12 { width: 50%; }
-    .g .u-7-12 { width: 58.333333333333334%; }
-    .g .u-8-12 { width: 66.666666666666667%; }
+    .g .u-7-12 { width: 58.334%; }
+    .g .u-8-12 { width: 66.667%; }
     .g .u-9-12 { width: 75%; }
-    .g .u-10-12 { width: 83.333333333333334%; }
-    .g .u-11-12 { width: 91.666666666666667%; }
+    .g .u-10-12 { width: 83.334%; }
+    .g .u-11-12 { width: 91.667%; }
     
-    .g .s-1-12 { margin-left: 8.333333333333334%; }
-    .g .s-2-12 { margin-left: 16.666666666666667%; }
+    .g .s-1-12 { margin-left: 8.334%; }
+    .g .s-2-12 { margin-left: 16.667%; }
     .g .s-3-12 { margin-left: 25%; }
-    .g .s-4-12 { margin-left: 33.333333333333334%; }
-    .g .s-5-12 { margin-left: 41.666666666666667%; }
+    .g .s-4-12 { margin-left: 33.334%; }
+    .g .s-5-12 { margin-left: 41.667%; }
     .g .s-6-12 { margin-left: 50%; }
-    .g .s-7-12 { margin-left: 58.333333333333334%; }
-    .g .s-8-12 { margin-left: 66.666666666666667%; }
+    .g .s-7-12 { margin-left: 58.334%; }
+    .g .s-8-12 { margin-left: 66.667%; }
     .g .s-9-12 { margin-left: 75%; }
-    .g .s-10-12 { margin-left: 83.333333333333334%; }
-    .g .s-11-12 { margin-left: 91.666666666666667%; }
+    .g .s-10-12 { margin-left: 83.334%; }
+    .g .s-11-12 { margin-left: 91.667%; }
 
 }
 
